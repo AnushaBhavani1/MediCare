@@ -24,8 +24,8 @@ const __dirname = path.dirname(__filename);
 /* ---------------------- CONFIG ---------------------- */
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
+  "https://medicare-frontend-swum.onrender.com",
+  "https://medicare-admin-yb5b.onrender.com",
 ];
 
 /* ---------------------- MIDDLEWARE ---------------------- */
