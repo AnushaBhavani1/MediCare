@@ -1,6 +1,5 @@
-// App.jsx
 import React from "react";
-import { HashRouter, Routes, Route, Link } from "react-router-dom"; // ✅ Use HashRouter for static deploys
+import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import Hero from "./pages/Hero";
 import { useUser } from "@clerk/clerk-react";
 import DashboardPage from "./components/DashboardPage";
@@ -24,10 +23,7 @@ function RequireAuth({ children }) {
           <p className="text-lg font-semibold mb-4">
             Please sign in to view this page
           </p>
-          <Link
-            to="/"
-            className="px-4 py-2 rounded bg-emerald-600 text-white"
-          >
+          <Link to="/" className="px-4 py-2 rounded bg-emerald-600 text-white">
             Home
           </Link>
         </div>
@@ -43,79 +39,14 @@ const App = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Hero />} />
-
-        {/* Dashboard Route */}
-        <Route
-          path="/h"
-          element={
-            <RequireAuth>
-              <DashboardPage />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/add"
-          element={
-            <RequireAuth>
-              <Add />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/list"
-          element={
-            <RequireAuth>
-              <List />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/appointments"
-          element={
-            <RequireAuth>
-              <Appointments />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/service-dashboard"
-          element={
-            <RequireAuth>
-              <SerDashboard />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/add-service"
-          element={
-            <RequireAuth>
-              <AddSer />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/list-service"
-          element={
-            <RequireAuth>
-              <ListService />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/service-appointments"
-          element={
-            <RequireAuth>
-              <ServiceAppointments />
-            </RequireAuth>
-          }
-        />
+        <Route path="/h" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+        <Route path="/add" element={<RequireAuth><Add /></RequireAuth>} />
+        <Route path="/list" element={<RequireAuth><List /></RequireAuth>} />
+        <Route path="/appointments" element={<RequireAuth><Appointments /></RequireAuth>} />
+        <Route path="/service-dashboard" element={<RequireAuth><SerDashboard /></RequireAuth>} />
+        <Route path="/add-service" element={<RequireAuth><AddSer /></RequireAuth>} />
+        <Route path="/list-service" element={<RequireAuth><ListService /></RequireAuth>} />
+        <Route path="/service-appointments" element={<RequireAuth><ServiceAppointments /></RequireAuth>} />
       </Routes>
     </HashRouter>
   );
