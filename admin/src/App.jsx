@@ -6,7 +6,7 @@ import DashboardPage from "./components/DashboardPage"; // ✅ IMPORTANT
 import Add from "./pages/Add";
 import List from "./pages/List";
 import Appointments from "./pages/Appointments";
-import SerDashboard from "./pages/serDashboard";
+import SerDashboard from "./pages/SerDashboard";
 import AddSer from "./pages/AddSer";
 import ListService from "./pages/ListService";
 import ServiceAppointments from "./pages/ServiceAppointments";
