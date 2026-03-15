@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom"; // ✅ BrowserRouter imported
+import { HashRouter, Routes, Route, Link } from "react-router-dom"; // ✅ BrowserRouter imported
 import Hero from "./pages/Hero";
 import { useUser } from "@clerk/clerk-react";
 import DashboardPage from "./components/DashboardPage"; 
@@ -39,7 +39,7 @@ function RequireAuth({ children }) {
 
 const App = () => {
   return (
-    <BrowserRouter> {/* ✅ Make sure this is imported! */}
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Hero />} />
 
@@ -115,7 +115,7 @@ const App = () => {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
