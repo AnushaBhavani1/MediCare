@@ -1,8 +1,9 @@
+// App.jsx
 import React from "react";
-import { HashRouter, Routes, Route, Link } from "react-router-dom"; // ✅ BrowserRouter imported
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Hero from "./pages/Hero";
 import { useUser } from "@clerk/clerk-react";
-import DashboardPage from "./components/DashboardPage"; 
+import DashboardPage from "./components/DashboardPage";
 import Add from "./pages/Add";
 import List from "./pages/List";
 import Appointments from "./pages/Appointments";
@@ -39,10 +40,11 @@ function RequireAuth({ children }) {
 
 const App = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Hero />} />
 
+        {/* Dashboard Route */}
         <Route
           path="/h"
           element={
@@ -115,7 +117,7 @@ const App = () => {
           }
         />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
