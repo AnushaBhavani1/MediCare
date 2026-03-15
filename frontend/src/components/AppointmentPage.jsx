@@ -5,7 +5,7 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import { Toaster } from "react-hot-toast";
 import { CalendarDays, Clock, CreditCard, Wallet, CheckCircle, Bell, XCircle } from "lucide-react";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://medicare-backend-i0t4.onrender.com";
 const API = axios.create({baseURL : API_BASE})
 
 function pad(n) {
