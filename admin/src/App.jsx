@@ -1,6 +1,6 @@
 // App.jsx
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { HashRouter, Routes, Route, Link } from "react-router-dom"; // ✅ Use HashRouter for static deploys
 import Hero from "./pages/Hero";
 import { useUser } from "@clerk/clerk-react";
 import DashboardPage from "./components/DashboardPage";
@@ -40,7 +40,7 @@ function RequireAuth({ children }) {
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Hero />} />
 
@@ -117,7 +117,7 @@ const App = () => {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
