@@ -14,7 +14,7 @@ const imagePath = doc.imageUrl || doc.image || "";
 const image = imagePath
   ? imagePath.startsWith("http")
     ? imagePath
-    : `http://localhost:4000/${imagePath}`
+    : `https://medicare-backend-i0t4.onrender.com/${imagePath}`
   : null;
   // various possible stat shapes
   const totalAppointments =
@@ -49,7 +49,7 @@ const image = imagePath
   };
 }
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://medicare-backend-i0t4.onrender.com";
 const ServiceDashboard = ({servicesProp}) =>{
      const [services, setServices] = useState(
     Array.isArray(servicesProp) ? servicesProp.map(normalizeService) : [],

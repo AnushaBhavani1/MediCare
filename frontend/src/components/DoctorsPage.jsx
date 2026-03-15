@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://medicare-backend-i0t4.onrender.com";
 
 const DoctorsPage = () => {
   const [allDoctors, setAllDoctors] = useState([]);
