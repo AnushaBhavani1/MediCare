@@ -1,5 +1,5 @@
 import express from "express";
-import multer from "multer";
+import upload from "../middlewares/upload.js";
 
 import {
   createService,
@@ -9,7 +9,6 @@ import {
   updateService,
 } from "../controllers/serviceController.js";
 
-const upload = multer({ dest: "/tmp" });
 const serviceRouter = express.Router();
 
 serviceRouter.get("/", getServices);

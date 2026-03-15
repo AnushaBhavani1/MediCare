@@ -1,6 +1,6 @@
 import express from "express";
-import multer from "multer";
-
+//import multer from "multer";
+import upload from "../middlewares/upload.js";
 import {
   createDoctor,
   deleteDoctor,
@@ -13,7 +13,7 @@ import {
 
 import doctorAuth from "../middlewares/doctorAuth.js";
 
-const upload = multer({ dest: "/temp" });
+//const upload = multer({ dest: "uploads" });
 const doctorRouter = express.Router();
 
 doctorRouter.get("/", getDoctors);
