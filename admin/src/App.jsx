@@ -1,8 +1,8 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"; // ✅ BrowserRouter imported
 import Hero from "./pages/Hero";
 import { useUser } from "@clerk/clerk-react";
-import DashboardPage from "./components/DashboardPage"; // ✅ IMPORTANT
+import DashboardPage from "./components/DashboardPage"; 
 import Add from "./pages/Add";
 import List from "./pages/List";
 import Appointments from "./pages/Appointments";
@@ -39,86 +39,83 @@ function RequireAuth({ children }) {
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Hero />} />
+    <BrowserRouter> {/* ✅ Make sure this is imported! */}
+      <Routes>
+        <Route path="/" element={<Hero />} />
 
-      {/* ✅ Dashboard Route */}
-      <Route
-        path="/h"
-        element={
-          <RequireAuth>
-            <DashboardPage />
-          </RequireAuth>
-        }
-      />
+        <Route
+          path="/h"
+          element={
+            <RequireAuth>
+              <DashboardPage />
+            </RequireAuth>
+          }
+        />
 
-      <Route
-      path="/add"
-      element={
-        <RequireAuth>
-          <Add/>
-        </RequireAuth>
-      }
-      />
+        <Route
+          path="/add"
+          element={
+            <RequireAuth>
+              <Add />
+            </RequireAuth>
+          }
+        />
 
-      <Route
-      path="/list"
-      element={
-        <RequireAuth>
-          <List/>
-        </RequireAuth>
-      }
-      />
+        <Route
+          path="/list"
+          element={
+            <RequireAuth>
+              <List />
+            </RequireAuth>
+          }
+        />
 
-      <Route
-      path="/appointments"
-      element={
-        <RequireAuth>
-          <Appointments/>
-        </RequireAuth>
-      }
-      />
+        <Route
+          path="/appointments"
+          element={
+            <RequireAuth>
+              <Appointments />
+            </RequireAuth>
+          }
+        />
 
-      <Route
-      path="/service-dashboard"
-      element={
-        <RequireAuth>
-          <SerDashboard/>
-        </RequireAuth>
-      }
-      />
+        <Route
+          path="/service-dashboard"
+          element={
+            <RequireAuth>
+              <SerDashboard />
+            </RequireAuth>
+          }
+        />
 
-       <Route
-      path="/add-service"
-      element={
-        <RequireAuth>
-         <AddSer/>
-        </RequireAuth>
-      }
-      />
+        <Route
+          path="/add-service"
+          element={
+            <RequireAuth>
+              <AddSer />
+            </RequireAuth>
+          }
+        />
 
-      <Route
-      path="/list-service"
-      element={
-        <RequireAuth>
-         <ListService/>
+        <Route
+          path="/list-service"
+          element={
+            <RequireAuth>
+              <ListService />
+            </RequireAuth>
+          }
+        />
 
-        </RequireAuth>
-      }
-      />
-
-      <Route
-      path="/service-appointments"
-      element={
-        <RequireAuth>
-         <ServiceAppointments/>
-
-         
-        </RequireAuth>
-      }
-      />
-
-    </Routes>
+        <Route
+          path="/service-appointments"
+          element={
+            <RequireAuth>
+              <ServiceAppointments />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
