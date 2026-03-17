@@ -11,14 +11,14 @@ const appointmentSchema= new mongoose.Schema({
     age: { type: Number, default: null },
     gender: { type: String, default: "" },
 
-    //doctor info
+    //doctor info : This creates a relationship between the Appointment and Doctor collections.
     doctorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Doctor",
       required: true,
       index: true,
     },
-    doctorName: { type: String, default: "" },
+    doctorName: { type: String, default: "" }, //These store a snapshot of doctor information at booking time.
     speciality: { type: String, default: "" },
 
     doctorImage: {
@@ -56,13 +56,14 @@ const appointmentSchema= new mongoose.Schema({
         default: "Pending",
       },
       amount: { type: Number, default: 0 },
-      providerId: { type: String, default: "" },
+      providerId: { type: String, default: "" }, //Used when integrating with payment gateways.
       meta: { type: mongoose.Schema.Types.Mixed, default: {} },
     },
-    sessionId: { type: String, default: null, index: true },
+    sessionId: { type: String, default: null, index: true }, //Used to track payment sessions.
     paidAt: { type: Date, default: null }, 
 },{
-    timestamps:true
+    timestamps:true //This automatically adds two fields:createdAt ,updatedAt
+
 });
 
 const Appointment = mongoose.models.Appointment || mongoose.model("Appointment",appointmentSchema);

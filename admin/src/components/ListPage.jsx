@@ -314,7 +314,7 @@ async function removeDoctor(id) {
                                         </div>
 
                                         <div className={doctorListStyles.doctorDetails}>
-                                            {doc.specialization} - {doc.experience} years
+                                            {doc.specialization} - {doc.experience} 
                                         </div>
 
                                        </div> 

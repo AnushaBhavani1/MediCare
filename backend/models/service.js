@@ -25,7 +25,7 @@ const serviceSchema=new mongoose.Schema({
     timestamps:true
 });
 
-serviceSchema.index({name:"text",shortDescription:"text"});
+serviceSchema.index({name:"text",shortDescription:"text"}); //It is used to enable fast text search on specific fields.
 
 const Service= mongoose.models.Service || mongoose.model("Service",serviceSchema);
 

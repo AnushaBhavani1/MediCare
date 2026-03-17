@@ -32,16 +32,16 @@ const serviceAppointmentSchema = new mongoose.Schema(
     },
 
     serviceId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, //This links the appointment to the Service collection.
       ref: "Service",
       required: true,
       index: true,
     },
 
-    serviceName: {
+    serviceName: {  //Service name updated in future ,Old appointments should still show original name
       type: String,
       required: true,
-    },
+    }, 
 
     serviceImage: {
       url: { type: String, default: "" },
@@ -123,7 +123,7 @@ const serviceAppointmentSchema = new mongoose.Schema(
 
 // Useful indexes
 serviceAppointmentSchema.index({ date: 1, status: 1 });
-serviceAppointmentSchema.index({
+serviceAppointmentSchema.index({  //helps detect duplicate bookings.
   serviceId: 1,
   date: 1,
   hour: 1,
