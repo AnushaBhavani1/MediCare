@@ -12,6 +12,7 @@ import doctorRouter from "./routes/doctorRouter.js";
 import serviceRouter from "./routes/serviceRouter.js";
 import appointmentRouter from "./routes/appointmentRouter.js";
 import serviceAppointmentRouter from "./routes/serviceAppointmentRouter.js";
+import paymentRouter from "./routes/paymentRoute.js";
 
 const app = express();
 const port = 4000;
@@ -26,6 +27,7 @@ const __dirname = path.dirname(__filename);
 const allowedOrigins = [
   "https://medicare-frontend-swum.onrender.com",
   "https://medicare-admin-yb5b.onrender.com",
+  "http://localhost:5173"
 ];
 
 /* ---------------------- MIDDLEWARE ---------------------- */
@@ -46,7 +48,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
+app.use("/api/payment", paymentRouter);
 app.use(clerkMiddleware());
 
 app.use(express.json({ limit: "20mb" }));
