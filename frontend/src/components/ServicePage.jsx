@@ -200,7 +200,40 @@ const ServicePage = ({previewCount = 9999}) =>{
                 ):(
                     <section className={servicePageStyles.servicesGrid}>
                         {shown.length>0 ? (
-                            shown.map((s) => <ServiceCard key={s.id || s.name} service={s} />)
+             shown.map((s) => {
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  let futureDates = [];
+
+  if (s.raw?.slots) {
+
+    futureDates = Object.keys(s.raw.slots).filter((date) => {
+
+      const slotDate = new Date(date);
+      slotDate.setHours(0, 0, 0, 0);
+
+      return slotDate >= today;
+    });
+
+  }
+
+  if (
+    s.raw?.slots &&
+    futureDates.length === 0
+  ) {
+    return null;
+  }
+
+  return (
+    <ServiceCard
+      key={s.id || s.name}
+      service={s}
+    />
+  );
+
+})            
                         ) : (
                             <div className={servicePageStyles.emptyState}>
                                 No services available.

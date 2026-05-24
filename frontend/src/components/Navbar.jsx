@@ -5,10 +5,12 @@ import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/clerk-react";
 import logo from "../assets/logo.png";
 import { UserRound, Key, Menu, X } from "lucide-react";
 
+
 const STORAGE_KEY = "doctorToken_v1";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -16,7 +18,10 @@ const Navbar = () => {
 
   const location = useLocation();
   const clerk = useClerk();
-  const navigate = useNavigate();
+  const navigate = useNavigate(
+
+
+  );
 
   // Doctor login state sync
   const [isDoctorLoggedIn, setIsDoctorLoggedIn] = useState(() => {

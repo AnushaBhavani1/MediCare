@@ -152,7 +152,24 @@ const preview = doctors.slice(0, previewCount);
                 </div>
         ):(
             <div className={homeDoctorsStyles.doctorsGrid}>
-                {preview.map((doctor)=> (
+             {preview.map((doctor)=> {
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const hasFutureSlots =
+    doctor.raw?.schedule &&
+    Object.keys(doctor.raw.schedule).some((date) => {
+
+      const slotDate = new Date(date);
+      slotDate.setHours(0, 0, 0, 0);
+
+      return slotDate >= today;
+    });
+
+  if (!hasFutureSlots) return null;
+
+  return (
                     <article key={doctor.id || doctor.name} className={homeDoctorsStyles.article}>
                         {doctor.available ? (
                             <Link to={`/doctors/${doctor.id}`}
@@ -230,8 +247,9 @@ const preview = doctors.slice(0, previewCount);
                                     </div>
                                     </div>
                                     </div>
-                    </article>
-                ))}
+                                       </article>
+                  );
+                })}
                 </div>
         
         )}

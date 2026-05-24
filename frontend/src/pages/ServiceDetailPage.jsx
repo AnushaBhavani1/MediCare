@@ -28,8 +28,7 @@ export default function ServiceDetail() {
   const [gender, setGender] = useState("");
 
   const [email, setEmail] = useState("");
-  const [paymentMethod] = useState("Cash");
-
+  const [paymentMethod, setPaymentMethod] = useState("Cash");
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
@@ -201,7 +200,7 @@ export default function ServiceDetail() {
       .filter((p) => dateVal(p.date) >= todayVal)
       .sort((a, b) => dateVal(a.date) - dateVal(b.date)); // earliest future first (includes today)
 
-    return [...past, ...future].map((p) => p.ds);
+    return future.map((p) => p.ds);
   }
 
   // Replace your transformServiceShape with this updated version:
@@ -255,6 +254,52 @@ export default function ServiceDetail() {
     out.raw = doc;
     return out;
   }
+const handlePayment = async () => {
+  try {
+    const response = await fetch(
+      "https://medicare-backend-i0t4.onrender.com/api/payment/create-order",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: service.price,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    const options = {
+      key: "rzp_test_StEb5gkj5r7E88",
+
+      amount: data.order.amount,
+      currency: data.order.currency,
+      order_id: data.order.id,
+
+      name: "MediCare",
+      description: "Appointment Payment",
+
+      handler: async function (response) {
+        alert("Payment Successful");
+
+        // after payment success create booking
+        handleSubmit();
+      },
+
+      theme: {
+        color: "#3399cc",
+      },
+    };
+console.log(window.Razorpay);
+    const razor = new window.Razorpay(options);
+
+    razor.open();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
@@ -514,10 +559,28 @@ export default function ServiceDetail() {
 </label>
 
 <div className={serviceDetailStyles.paymentOptions}>
-  <div className={serviceDetailStyles.paymentOption(true)}>
+
+  <button
+    type="button"
+    onClick={() => setPaymentMethod("Cash")}
+    className={serviceDetailStyles.paymentOption(
+      paymentMethod === "Cash"
+    )}
+  >
     Cash at Clinic
-  </div>
-</div> 
+  </button>
+
+  <button
+    type="button"
+    onClick={() => setPaymentMethod("Online")}
+    className={serviceDetailStyles.paymentOption(
+      paymentMethod === "Online"
+    )}
+  >
+    Pay Online
+  </button>
+
+</div>
              </div>
           </div>
 
@@ -586,7 +649,13 @@ export default function ServiceDetail() {
             )}
             <button
               disabled={!isFormValid() || submitting}
-              onClick={handleSubmit}
+              onClick={() => {
+  if (paymentMethod === "Online") {
+    handlePayment();
+  } else {
+    handleSubmit();
+  }
+}}
               className={serviceDetailStyles.submitButton(
                 isFormValid() && !submitting,
                 submitting,

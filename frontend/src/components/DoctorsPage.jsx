@@ -174,7 +174,24 @@ const DoctorsPage = () => {
             }`}
           >
             {displayedDoctors.length > 0 ? (
-              displayedDoctors.map((doctor, index) => (
+             displayedDoctors.map((doctor, index) => {
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const hasFutureSlots =
+    doctor.raw?.schedule &&
+    Object.keys(doctor.raw.schedule).some((date) => {
+
+      const slotDate = new Date(date);
+      slotDate.setHours(0, 0, 0, 0);
+
+      return slotDate >= today;
+    });
+
+  if (!hasFutureSlots) return null;
+
+  return (
                 <div
                   key={doctor.id || index}
                   className={`${doctorsPageStyles.doctorCard} ${
@@ -264,13 +281,13 @@ const DoctorsPage = () => {
                     </button>
                   )}
                 </div>
-              ))
+                             );
+              })
             ) : (
               <div className={doctorsPageStyles.noResults}>
                 No doctors found matching your search criteria.
               </div>
-            )}
-          </div>
+            )}        </div>
         )}
 
         {/* SHOW MORE */}

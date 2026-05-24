@@ -73,7 +73,7 @@ function getScheduleDates(schedule) {
     );
 
   // Return array of Date objects in desired order
-  return [...past, ...future].map((p) => p.date);
+  return future.map((p) => p.date);
 }
 
 /**
@@ -196,7 +196,48 @@ export default function DoctorDetail() {
     const digits = pasted.replace(/\D/g, "").slice(0, 10);
     setFormData((prev) => ({ ...prev, mobile: digits }));
   };
+const handlePayment = async () => {
+  try {
+    const response = await fetch(
+      "https://medicare-backend-i0t4.onrender.com/api/payment/create-order",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: fee,
+        }),
+      }
+    );
 
+    const data = await response.json();
+
+    const options = {
+      key: "rzp_test_StEb5gkj5r7E88",
+      amount: data.order.amount,
+      currency: "INR",
+      name: "MediCare",
+      description: "Doctor Appointment Payment",
+      order_id: data.order.id,
+
+      handler: async function () {
+        await handleBooking();
+      },
+
+      theme: {
+        color: "#2563eb",
+      },
+    };
+
+    const razor = new window.Razorpay(options);
+    razor.open();
+
+  } catch (error) {
+    console.log(error);
+    alert("Payment failed");
+  }
+};
   const handleBooking = async () => {
     if (isSubmitting) return;
 
@@ -736,34 +777,54 @@ export default function DoctorDetail() {
                   </div>
 
                   {/* PAYMENT METHOD SELECTOR */}
-                  <div className={doctorDetailStyles.paymentContainer}>
-                    <label className={doctorDetailStyles.paymentLabel}>
-                      Payment:
-                    </label>
-                    <div className={doctorDetailStyles.paymentOptions}>
-                      <label
-                        className={`${doctorDetailStyles.paymentOption} ${
-                          paymentMethod === "Cash"
-                            ? doctorDetailStyles.paymentOptionSelected
-                            : doctorDetailStyles.paymentOptionUnselected
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="Cash"
-                          checked={paymentMethod === "Cash"}
-                          onChange={() => setPaymentMethod("Cash")}
-                          className={doctorDetailStyles.paymentRadio}
-                        />
-                        Cash
-                      </label>
-                     
-                    </div>
-                  </div>
+  <div className={doctorDetailStyles.paymentOptions}>
+
+  <label
+    className={`${doctorDetailStyles.paymentOption} ${
+      paymentMethod === "Cash"
+        ? doctorDetailStyles.paymentOptionSelected
+        : doctorDetailStyles.paymentOptionUnselected
+    }`}
+  >
+    <input
+      type="radio"
+      name="payment"
+      value="Cash"
+      checked={paymentMethod === "Cash"}
+      onChange={() => setPaymentMethod("Cash")}
+      className={doctorDetailStyles.paymentRadio}
+    />
+    Cash
+  </label>
+
+  <label
+    className={`${doctorDetailStyles.paymentOption} ${
+      paymentMethod === "Online"
+        ? doctorDetailStyles.paymentOptionSelected
+        : doctorDetailStyles.paymentOptionUnselected
+    }`}
+  >
+    <input
+      type="radio"
+      name="payment"
+      value="Online"
+      checked={paymentMethod === "Online"}
+      onChange={() => setPaymentMethod("Online")}
+      className={doctorDetailStyles.paymentRadio}
+    />
+    Pay Online
+  </label>
+
+</div>
 
                   <button
-                    onClick={handleBooking}
+                    onClick={() => {
+  if (paymentMethod === "Online") {
+    handlePayment();
+  } else {
+    handleBooking();
+  }
+}}
                     disabled={!selectedDate || !selectedSlot || isSubmitting}
                     className={`${doctorDetailStyles.bookingButton} ${
                       !selectedDate || !selectedSlot || isSubmitting
