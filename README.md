@@ -71,19 +71,6 @@ MediCare is a full-stack healthcare platform built using **React.js, Node.js, Ex
 
 ---
 
-## 📂 Project Structure
-
-```text
-MediCare/
-├── frontend/
-├── backend/
-├── admin/
-├── models/
-├── routes/
-├── controllers/
-├── middleware/
-└── package.json
-```
 
 ## 🔧 Installation
 
