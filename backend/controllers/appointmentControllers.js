@@ -2,9 +2,8 @@ import Appointment from "../models/Appointment.js";
 import Doctor from "../models/Doctor.js";
 import { getAuth, clerkClient } from "@clerk/express";
 
-//////////////////////////////////////////////////////
 // Helpers
-//////////////////////////////////////////////////////
+
 
 const safeNumber = (v) => {
   const n = Number(v);
@@ -24,9 +23,9 @@ function resolveClerkUserId(req) {
   }
 }
 
-//////////////////////////////////////////////////////
+
 // GET ALL APPOINTMENTS (Admin)
-//////////////////////////////////////////////////////
+
 
 export const getAppointments = async (req, res) => {
   try {
@@ -79,9 +78,9 @@ export const getAppointments = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
+
 // GET APPOINTMENTS BY PATIENT
-//////////////////////////////////////////////////////
+
 
 export const getAppointmentsByPatient = async (req, res) => {
   try {
@@ -108,9 +107,9 @@ export const getAppointmentsByPatient = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
+
 // CREATE APPOINTMENT
-//////////////////////////////////////////////////////
+
 export const createAppointment = async (req, res) => {
   try {
     const {
@@ -239,9 +238,9 @@ export const updateAppointment = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
+
 // CANCEL APPOINTMENT
-//////////////////////////////////////////////////////
+
 
 export const cancelAppointment = async (req, res) => {
   try {
@@ -281,9 +280,9 @@ export const cancelAppointment = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
+
 // STATS
-//////////////////////////////////////////////////////
+
 
 export const getStats = async (req, res) => {
   try {
@@ -317,9 +316,9 @@ export const getStats = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
+
 // DOCTOR APPOINTMENTS
-//////////////////////////////////////////////////////
+
 
 export const getAppointmentsByDoctor = async (req, res) => {
   try {
@@ -337,9 +336,9 @@ export const getAppointmentsByDoctor = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
+
 // REGISTERED USERS COUNT
-//////////////////////////////////////////////////////
+
 
 export const getRegisteredUserCount = async (req, res) => {
   try {
